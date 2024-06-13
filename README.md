@@ -1,4 +1,7 @@
 ![Logo](/public/redmeImage/Rokto%20borno%20logo.png)
+<div id="header" align="center">
+    <img src="/public/redmeImage/Rokto borno logo.png" width="700"/>
+</div>
 
 # ROKTO BORNO
 
