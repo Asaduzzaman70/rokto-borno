@@ -1,6 +1,6 @@
 <!-- ![Logo](/public/redmeImage/Rokto%20borno%20logo.png) -->
 <div id="header" align="center">
-    <img src="/public/redmeImage/Blood Donation Logo.png" width="500"/>
+    <img src="/public/redmeImage/Rokto borno logo.png" width="500"/>
 </div>
 
 # ROKTO BORNO
