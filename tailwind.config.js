@@ -7,6 +7,26 @@ export default {
   ],
   theme: {
     extend: {},
+    colors: {
+      myBg: {
+        light: '#c0392b',
+        dark: '#C01B2C'
+      },
+      myBgTheme: {
+        light: '#dff9fb',
+        dark: '#2c3e50',
+        white: '#ffff'
+      },
+      myText: {
+        highLight: '#ecf0f1',
+        mediumLight: '#bdc3c7',
+        mediumDark: '#34495e',
+        highDark: '#2c3e50'
+      },
+    },
+    fontFamily: {
+      myFont: "Source Sans 3"
+    }
   },
   plugins: [
     require('daisyui'),
