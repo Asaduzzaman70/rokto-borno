@@ -1,15 +1,16 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from '../../../assets/Rokto borno logo.png'
+import DarkModeToggle from "../../../DarkModeToggle";
 
 const Navbar = () => {
     const listItem = <>
-    <li><NavLink to='/a'>donation requests</NavLink></li>
-    <li><NavLink to='/b'>blog</NavLink></li>
-    <li><NavLink to='/c'>funding</NavLink></li>
+        <li><NavLink to='/a'>donation requests</NavLink></li>
+        <li><NavLink to='/b'>blog</NavLink></li>
+        <li><NavLink to='/c'>funding</NavLink></li>
     </>
 
     return (
-        <div className="shadow-2xl bg-fixed">
+        <div className="shadow-2xl bg-fixed bg-white dark:bg-red-600">
             <div className="navbar container mx-auto py-3 justify-between">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -29,6 +30,7 @@ const Navbar = () => {
                         {listItem}
                     </ul>
                 </div>
+                <DarkModeToggle />
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
