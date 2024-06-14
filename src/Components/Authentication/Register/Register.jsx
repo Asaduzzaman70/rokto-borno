@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import img1 from '../../../assets/Elements/Group.png'
-import img2 from '../../../assets/Elements/platelet.png'
 import { useForm } from "react-hook-form"
-import { FaPlus } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaPlus } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 
 const Register = () => {
@@ -10,9 +8,13 @@ const Register = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm();
+        watch,
+        reset
+    } = useForm({mode: 'onTouched'});
 
     const [imagePreview, setImagePreview] = useState(null);
+    const [showPassword, setShowPassword] = useState(true);
+    const password = watch('password');
 
     const handlePreviewImage = (event) => {
         if (event.target.files && event.target.files[0]) {
@@ -35,6 +37,8 @@ const Register = () => {
 
     const onSubmit = (data) => {
         console.log(data);
+        reset();
+        setImagePreview(null)
     }
 
     return (
@@ -46,113 +50,179 @@ const Register = () => {
                 </h2>
                 <p className='md:text-base lg:text-xl text-myText-highDark dark:text-myText-mediumLight'>Your journey to saving lives begins here. Sign up and make a difference today.</p>
             </div>
-            <div className='flex flex-col md:flex-row'>
-                <div className="w-1/2 flex justify-center relative">
-                    <img src={img1} alt="Group.png" />
-                    <img className='absolute w-40 right-32 top-0' src={img2} alt="Group.png" />
-                </div>
-                <div className="w-1/2">
-                    <div className="card shrink-0 shadow-2xl h-full border-2 border-myBg-dark w-3/4 mx-auto">
-                        {/* Image Preview */}
-                        <div className='inline-block mx-auto'>
-                            {
-                                imagePreview ? <div tabIndex={0} role="button" className="avatar">
-                                    <div className="w-64 h-64 rounded-full border-8 border-myBg-dark shadow-2xl">
-                                        <img alt="Tailwind CSS Navbar component" src={imagePreview} />
-                                    </div>
-                                </div>
-                                    :
-                                    <>
-                                        <div tabIndex={0} role="button" className="avatar">
-                                            <label htmlFor="fileInput" className="w-64 h-64 flex justify-center items-center rounded-full border-2 border-myBg-dark shadow-2xl">
-                                                <FaPlus className='text-6xl text-myBg-dark' />
-                                            </label>
-                                        </div><br />
-                                        <div className='text-center mt-6'>
-                                            <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark">Choice Photo*</span>
-                                            {errors.photo && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">*Photo field is required</p>}
-                                        </div>
-                                    </>
-                            }
+            {/* Section 2 */}
+            <div className="card shrink-0 shadow-2xl h-full border-2 border-myBg-dark w-3/4 mx-auto md:px-12 py-12">
+                {/* Image Preview */}
+                <div className='inline-block mx-auto'>
+                    {
+                        imagePreview ? <div tabIndex={0} role="button" className="avatar">
+                            <div className="w-64 h-64 rounded-full border-8 border-myBg-dark shadow-2xl">
+                                <img alt="Tailwind CSS Navbar component" src={imagePreview} />
+                            </div>
                         </div>
-                        <form onSubmit={handleSubmit(onSubmit)} className="card-body">
-                            {/* Email */}
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark">Email*</span>
-                                </label>
-                                <input {...register('email', { required: true })} type="email" placeholder="Email" className="input input-lg bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:text-myBgTheme-white" />
-                                {errors.email && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">*Email field is required</p>}
-                            </div>
-                            {/* Full Name */}
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark">Full Name*</span>
-                                </label>
-                                <input {...register('name', { required: true })} type="text" placeholder="Full Name" className="input input-lg capitalize bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:text-myBgTheme-white" />
-                                {errors.name && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">*Name field is required</p>}
-                            </div>
-                            {/* Photo Field */}
-                            <div className="form-control">
-                                <input {...register('photo', { required: true })} onInput={handlePreviewImage} id="fileInput" type="file" placeholder="Photo" className="input input-lg capitalize bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:text-myBgTheme-white hidden" />
-                            </div>
-                            {/* Blood Group */}
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark">Blood Group</span>
-                                </label>
-                                <select
-                                    {...register('bloodGroup', {
-                                        validate: value => value !== 'default' || 'Blood Group field is required'
-                                    })}
-                                    className="select select-bordered input-lg capitalize bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:bg-myText-highDark dark:text-myBgTheme-white"
-                                    defaultValue={'default'}
-                                >
-                                    <option disabled value="default">Select Blood Group</option>
-                                    <option value='A+'>A+</option>
-                                    <option value='A-'>A-</option>
-                                    <option value='B+'>B+</option>
-                                    <option value='B-'>B-</option>
-                                    <option value='AB+'>AB+</option>
-                                    <option value='AB-'>AB-</option>
-                                    <option value='O+'>O+</option>
-                                    <option value='O-'>O-</option>
-                                </select>
-                                {errors.bloodGroup && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">*{errors.bloodGroup.message}</p>}
-                            </div>
-                            {/* District */}
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark">Blood Group</span>
-                                </label>
-                                <select
-                                    {...register('district', {
-                                        validate: value => value !== 'default' || 'District field is required'
-                                    })}
-                                    className="select select-bordered input-lg capitalize bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:bg-myText-highDark dark:text-myBgTheme-white"
-                                    defaultValue={'default'}
-                                >
-                                    <option disabled value="default">Select Blood Group</option>
-                                    <option value='A+'>A+</option>
-                                    <option value='A-'>A-</option>
-                                    <option value='B+'>B+</option>
-                                    <option value='B-'>B-</option>
-                                    <option value='AB+'>AB+</option>
-                                    <option value='AB-'>AB-</option>
-                                    <option value='O+'>O+</option>
-                                    <option value='O-'>O-</option>
-                                </select>
-                                {errors.district && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">*{errors.district.message}</p>}
-                            </div>
-                            {/* Submit */}
-                            <div className="form-control mt-6">
-                                <input className="btn text-base uppercase bg-myBg-dark text-myBgTheme-white font-bold border-4 border-myBg-dark" type="submit" value="Create Account" />
-                            </div>
-                        </form>
-                    </div>
+                            :
+                            <>
+                                <div tabIndex={0} role="button" className="avatar">
+                                    <label htmlFor="fileInput" className="w-64 h-64 flex justify-center items-center rounded-full border-2 border-myBg-dark shadow-2xl">
+                                        <FaPlus className='text-6xl text-myBg-dark' />
+                                    </label>
+                                </div><br />
+                                <div className='text-center mt-6'>
+                                    <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark">Choice Photo*</span>
+                                    {errors.photo && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">*Photo field is required</p>}
+                                </div>
+                            </>
+                    }
                 </div>
-            </div>
-        </div>
+                {/* Form Field */}
+                <form onSubmit={handleSubmit(onSubmit)} className="card-body space-y-6">
+                    {/* Email */}
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark">Email*</span>
+                        </label>
+                        <input {...register('email', { required: true })} type="email" placeholder="Email" className="input input-lg bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:text-myBgTheme-white" />
+                        {errors.email && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">*Email field is required</p>}
+                    </div>
+                    {/* Full Name */}
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark">Full Name*</span>
+                        </label>
+                        <input {...register('name', { required: true })} type="text" placeholder="Full Name" className="input input-lg capitalize bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:text-myBgTheme-white" />
+                        {errors.name && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">*Name field is required</p>}
+                    </div>
+                    {/* Blood Group */}
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark">Blood Group*</span>
+                        </label>
+                        <select
+                            {...register('bloodGroup', {
+                                validate: value => value !== 'default' || 'Blood Group field is required'
+                            })}
+                            className="select select-bordered input-lg capitalize bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:bg-myText-highDark dark:text-myBgTheme-white"
+                            defaultValue={'default'}
+                        >
+                            <option disabled value="default">Select Blood Group</option>
+                            <option value='A+'>A+</option>
+                            <option value='A-'>A-</option>
+                            <option value='B+'>B+</option>
+                            <option value='B-'>B-</option>
+                            <option value='AB+'>AB+</option>
+                            <option value='AB-'>AB-</option>
+                            <option value='O+'>O+</option>
+                            <option value='O-'>O-</option>
+                        </select>
+                        {errors.bloodGroup && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">*{errors.bloodGroup.message}</p>}
+                    </div>
+                    <div className='flex flex-col md:flex-row gap-6'>
+                        {/* District */}
+                        <div className="form-control w-full">
+                            <label className="label">
+                                <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark">District*</span>
+                            </label>
+                            <select
+                                {...register('district', {
+                                    validate: value => value !== 'default' || 'District field is required'
+                                })}
+                                className="select select-bordered input-lg capitalize bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:bg-myText-highDark dark:text-myBgTheme-white"
+                                defaultValue={'default'}
+                            >
+                                <option disabled value="default">Select District</option>
+                                <option value='A+'>A+</option>
+                                <option value='A-'>A-</option>
+                                <option value='B+'>B+</option>
+                                <option value='B-'>B-</option>
+                                <option value='AB+'>AB+</option>
+                                <option value='AB-'>AB-</option>
+                                <option value='O+'>O+</option>
+                                <option value='O-'>O-</option>
+                            </select>
+                            {errors.district && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">*{errors.district.message}</p>}
+                        </div>
+                        {/* Upazila */}
+                        <div className="form-control w-full">
+                            <label className="label">
+                                <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark">Upazila*</span>
+                            </label>
+                            <select
+                                {...register('upazila', {
+                                    validate: value => value !== 'default' || 'Upazila field is required'
+                                })}
+                                className="select select-bordered input-lg capitalize bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:bg-myText-highDark dark:text-myBgTheme-white"
+                                defaultValue={'default'}
+                            >
+                                <option disabled value="default">Select Upazila</option>
+                                <option value='A+'>A+</option>
+                                <option value='A-'>A-</option>
+                                <option value='B+'>B+</option>
+                                <option value='B-'>B-</option>
+                                <option value='AB+'>AB+</option>
+                                <option value='AB-'>AB-</option>
+                                <option value='O+'>O+</option>
+                                <option value='O-'>O-</option>
+                            </select>
+                            {errors.upazila && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">*{errors.upazila.message}</p>}
+                        </div>
+                    </div>
+                    {/* Password */}
+                    <div className="form-control relative">
+                        <label className="label">
+                            <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark">Password*</span>
+                        </label>
+                        <div>
+                            <input
+                                type={showPassword ? 'text' : 'password'} placeholder="Password"
+                                {...register('password', {
+                                    required: true,
+                                    minLength: 6,
+                                    maxLength: 20,
+                                    pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
+                                })} className="input input-lg bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:text-myBgTheme-white w-full" />
+                            <button
+                                type="button"
+                                className="absolute right-6 bottom-6 text-myBgTheme-white text-lg"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? <FaEye /> : <FaEyeSlash />}
+                            </button>
+                        </div>
+                    </div>
+                    {errors.password?.type === 'required' && <p className='text-red-600'>Password field is required</p>}
+                    {errors.password?.type === 'minLength' && <p className='text-red-600'>Password must be 6 characters</p>}
+                    {errors.password?.type === 'maxLength' && <p className='text-red-600'>Password must be less then 20 characters</p>}
+                    {errors.password?.type === 'pattern' && <p className='text-red-600'>Password must have one uppercase, one lowercase, one number and one special characters</p>}
+                    {/* Confirm Password */}
+                    <div className="form-control relative">
+                        <label className="label">
+                            <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark">Confirm Password*</span>
+                        </label>
+                        <div>
+                            <input {...register('confirmPassword', { required: true,
+                                validate: (value) => value === password || 'Password do not match'
+                             })} type={showPassword ? 'text' : 'password'}
+                                placeholder="Confirm Password" className="input input-lg capitalize bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:text-myBgTheme-white w-full" />
+                            <button
+                                className="absolute right-6 bottom-6 text-myBgTheme-white text-lg"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? <FaEye /> : <FaEyeSlash />}
+                            </button>
+                        </div>
+                    </div>
+                    {errors.confirmPassword && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">*{errors.confirmPassword?.message}</p>}
+                    {/* Photo Field */}
+                    <div className="form-control">
+                        <input {...register('photo', { required: true })} onInput={handlePreviewImage} id="fileInput" type="file" placeholder="Photo" className="input input-lg capitalize bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:text-myBgTheme-white hidden" />
+                    </div>
+                    {/* Submit */}
+                    <div className="form-control mt-6">
+                        <input className="btn text-base uppercase bg-myBg-dark text-myBgTheme-white font-bold border-4 border-myBg-dark" type="submit" value="Create Account" />
+                    </div>
+                </form>
+            </div >
+        </div >
     );
 };
 
