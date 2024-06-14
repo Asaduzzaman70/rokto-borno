@@ -10,10 +10,10 @@ const Register = () => {
         formState: { errors },
         watch,
         reset
-    } = useForm({mode: 'onTouched'});
+    } = useForm({ mode: 'onTouched' });
 
     const [imagePreview, setImagePreview] = useState(null);
-    const [showPassword, setShowPassword] = useState(true);
+    const [showPassword, setShowPassword] = useState(false);
     const password = watch('password');
 
     const handlePreviewImage = (event) => {
@@ -37,8 +37,12 @@ const Register = () => {
 
     const onSubmit = (data) => {
         console.log(data);
-        reset();
+        // reset();
         setImagePreview(null)
+    }
+
+    const handleDivision = e => {
+        console.log(e.target.value);
     }
 
     return (
@@ -116,6 +120,31 @@ const Register = () => {
                         </select>
                         {errors.bloodGroup && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">*{errors.bloodGroup.message}</p>}
                     </div>
+                    {/* Division */}
+                    <div className="form-control w-full">
+                        <label className="label">
+                            <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark">Division*</span>
+                        </label>
+                        <select
+                            {...register('division', {
+                                validate: value => value !== 'default' || 'Division field is required'
+                            })}
+                            className="select select-bordered input-lg capitalize bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:bg-myText-highDark dark:text-myBgTheme-white"
+                            defaultValue={'default'}
+                            onInput={handleDivision}
+                        >
+                            <option disabled value="default">Select Division</option>
+                            <option value='A+'>A+</option>
+                            <option value='A-'>A-</option>
+                            <option value='B+'>B+</option>
+                            <option value='B-'>B-</option>
+                            <option value='AB+'>AB+</option>
+                            <option value='AB-'>AB-</option>
+                            <option value='O+'>O+</option>
+                            <option value='O-'>O-</option>
+                        </select>
+                        {errors.division && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">*{errors.division.message}</p>}
+                    </div>
                     <div className='flex flex-col md:flex-row gap-6'>
                         {/* District */}
                         <div className="form-control w-full">
@@ -182,36 +211,38 @@ const Register = () => {
                                 })} className="input input-lg bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:text-myBgTheme-white w-full" />
                             <button
                                 type="button"
-                                className="absolute right-6 bottom-6 text-myBgTheme-white text-lg"
+                                className="absolute right-6 bottom-6 text-myText-highDark dark:text-myBgTheme-white text-lg"
                                 onClick={() => setShowPassword(!showPassword)}
                             >
                                 {showPassword ? <FaEye /> : <FaEyeSlash />}
                             </button>
                         </div>
                     </div>
-                    {errors.password?.type === 'required' && <p className='text-red-600'>Password field is required</p>}
-                    {errors.password?.type === 'minLength' && <p className='text-red-600'>Password must be 6 characters</p>}
-                    {errors.password?.type === 'maxLength' && <p className='text-red-600'>Password must be less then 20 characters</p>}
-                    {errors.password?.type === 'pattern' && <p className='text-red-600'>Password must have one uppercase, one lowercase, one number and one special characters</p>}
+                    {errors.password?.type === 'required' && <p className='text-myBg-dark dark:text-myBgTheme-white text-sm'>*Password field is required</p>}
+                    {errors.password?.type === 'minLength' && <p className='text-myBg-dark dark:text-myBgTheme-white text-sm'>*Password must be 6 characters</p>}
+                    {errors.password?.type === 'maxLength' && <p className='text-myBg-dark dark:text-myBgTheme-white text-sm'>*Password must be less then 20 characters</p>}
+                    {errors.password?.type === 'pattern' && <p className='text-myBg-dark dark:text-myBgTheme-white text-sm'>*Password must have one uppercase, one lowercase, one number and one special characters</p>}
                     {/* Confirm Password */}
                     <div className="form-control relative">
                         <label className="label">
                             <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark">Confirm Password*</span>
                         </label>
                         <div>
-                            <input {...register('confirmPassword', { required: true,
-                                validate: (value) => value === password || 'Password do not match'
-                             })} type={showPassword ? 'text' : 'password'}
+                            <input {...register('confirmPassword', {
+                                required: true,
+                                validate: (value) => value === password || '* Password do not match'
+                            })} type={showPassword ? 'text' : 'password'}
                                 placeholder="Confirm Password" className="input input-lg capitalize bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:text-myBgTheme-white w-full" />
                             <button
-                                className="absolute right-6 bottom-6 text-myBgTheme-white text-lg"
+                                className="absolute right-6 bottom-6 text-myText-highDark dark:text-myBgTheme-white"
                                 onClick={() => setShowPassword(!showPassword)}
                             >
                                 {showPassword ? <FaEye /> : <FaEyeSlash />}
                             </button>
                         </div>
                     </div>
-                    {errors.confirmPassword && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">*{errors.confirmPassword?.message}</p>}
+                    {errors.confirmPassword && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">{errors.confirmPassword?.message}</p>}
+
                     {/* Photo Field */}
                     <div className="form-control">
                         <input {...register('photo', { required: true })} onInput={handlePreviewImage} id="fileInput" type="file" placeholder="Photo" className="input input-lg capitalize bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:text-myBgTheme-white hidden" />
