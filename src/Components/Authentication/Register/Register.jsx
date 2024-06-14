@@ -42,8 +42,8 @@ const Register = () => {
     }
 
     return (
-        <div className="container mx-auto my-32">
-            <div className='text-center mb-28'>
+        <div className="container mx-auto my-32 px-4">
+            <div className='text-center mb-14 md:mb-28'>
                 <h1 className='text-2xl md:text-3xl lg:text-6xl uppercase font-bold text-myBg-dark dark:text-myBgTheme-white border-double border-myBg-dark dark:border-b-8 border-sky-500 inline-block'>Join Our Community <br /> of Lifesavers</h1> <br />
                 <h2 className='md:text-xl lg:text-2xl text-myBg-dark mt-2 font-light dark:text-myBgTheme-white dark:bg-myBg-dark inline-block rounded-lg p-2 dark:font-bold dark:uppercase'>
                     Your Journey to Saving Lives Begins Here
@@ -51,7 +51,7 @@ const Register = () => {
                 <p className='md:text-base lg:text-xl text-myText-highDark dark:text-myText-mediumLight'>Your journey to saving lives begins here. Sign up and make a difference today.</p>
             </div>
             {/* Section 2 */}
-            <div className="card shrink-0 shadow-2xl h-full border-2 border-myBg-dark w-3/4 mx-auto md:px-12 py-12">
+            <div className="card shrink-0 shadow-2xl h-full border-2 border-myBg-dark md:w-3/4 mx-auto md:px-12 py-12">
                 {/* Image Preview */}
                 <div className='inline-block mx-auto'>
                     {
