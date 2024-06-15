@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form"
 import { FaEye, FaEyeSlash, FaPlus } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import useAxiosPublic from '../../../Hooks/useAxiosPublic';
+import { useQuery } from '@tanstack/react-query';
 
 const Register = () => {
     const {
@@ -14,7 +16,18 @@ const Register = () => {
 
     const [imagePreview, setImagePreview] = useState(null);
     const [showPassword, setShowPassword] = useState(false);
+
+    const [divisionId, setDivisionIds] = useState("");
+    const [districtId, setDistrictId] = useState("");
+
+    const [districts, setDistricts] = useState([]);
+    const [upazilas, setUpazilas] = useState([]);
+
+
     const password = watch('password');
+    const axiosPublic = useAxiosPublic();
+
+
 
     const handlePreviewImage = (event) => {
         if (event.target.files && event.target.files[0]) {
@@ -34,15 +47,45 @@ const Register = () => {
             }
         }
     };
+    // Location Data Fetch
+    const { data: divisions = [] } = useQuery({
+        queryKey: ['division'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/division')
+            return res.data;
+        }
+    });
+    useEffect(() => {
+        if (divisionId) {
+            axiosPublic.get(`/districts?divisionId=${divisionId}`)
+                .then(res => setDistricts(res.data))
+                .catch(error => console.error(error));
+        }
+    }, [divisionId, axiosPublic]);
+    useEffect(() => {
+        if (districtId) {
+            axiosPublic.get(`/districts?districtId=${districtId}`)
+                .then(res => setUpazilas(res.data))
+                .catch(error => console.error(error));
+        }
+    }, [districtId, axiosPublic]);
+
+    const handleDistrict = e => {
+        const filterDivisionId = divisions.find(division => division.name === e.target.value);
+        const divisionId = filterDivisionId.divisionId;
+        setDivisionIds(divisionId);
+    }
+    const handleUpazila = e => {
+        const filterDistrictId = districts.find(district => district.name === e.target.value);
+        const districtId = filterDistrictId.districtId;
+        setDistrictId(districtId);
+    }
+    // console.log('This is value of upazilas:- ', upazilas);
 
     const onSubmit = (data) => {
         console.log(data);
-        // reset();
+        reset();
         setImagePreview(null)
-    }
-
-    const handleDivision = e => {
-        console.log(e.target.value);
     }
 
     return (
@@ -131,17 +174,12 @@ const Register = () => {
                             })}
                             className="select select-bordered input-lg capitalize bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:bg-myText-highDark dark:text-myBgTheme-white"
                             defaultValue={'default'}
-                            onInput={handleDivision}
+                            onInput={handleDistrict}
                         >
                             <option disabled value="default">Select Division</option>
-                            <option value='A+'>A+</option>
-                            <option value='A-'>A-</option>
-                            <option value='B+'>B+</option>
-                            <option value='B-'>B-</option>
-                            <option value='AB+'>AB+</option>
-                            <option value='AB-'>AB-</option>
-                            <option value='O+'>O+</option>
-                            <option value='O-'>O-</option>
+                            {divisions.map(division =>
+                                <option key={division._id} value={division.name}>{division.name}</option>
+                            )}
                         </select>
                         {errors.division && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">*{errors.division.message}</p>}
                     </div>
@@ -157,16 +195,12 @@ const Register = () => {
                                 })}
                                 className="select select-bordered input-lg capitalize bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:bg-myText-highDark dark:text-myBgTheme-white"
                                 defaultValue={'default'}
+                                onInput={handleUpazila}
                             >
                                 <option disabled value="default">Select District</option>
-                                <option value='A+'>A+</option>
-                                <option value='A-'>A-</option>
-                                <option value='B+'>B+</option>
-                                <option value='B-'>B-</option>
-                                <option value='AB+'>AB+</option>
-                                <option value='AB-'>AB-</option>
-                                <option value='O+'>O+</option>
-                                <option value='O-'>O-</option>
+                                {districts.map(district =>
+                                    <option key={district._id} value={district.name}>{district.name}</option>
+                                )}
                             </select>
                             {errors.district && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">*{errors.district.message}</p>}
                         </div>
@@ -183,14 +217,9 @@ const Register = () => {
                                 defaultValue={'default'}
                             >
                                 <option disabled value="default">Select Upazila</option>
-                                <option value='A+'>A+</option>
-                                <option value='A-'>A-</option>
-                                <option value='B+'>B+</option>
-                                <option value='B-'>B-</option>
-                                <option value='AB+'>AB+</option>
-                                <option value='AB-'>AB-</option>
-                                <option value='O+'>O+</option>
-                                <option value='O-'>O-</option>
+                                {upazilas.map(upazila =>
+                                    <option key={upazila._id} value={upazila.name}>{upazila.name}</option>
+                                )}
                             </select>
                             {errors.upazila && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">*{errors.upazila.message}</p>}
                         </div>
