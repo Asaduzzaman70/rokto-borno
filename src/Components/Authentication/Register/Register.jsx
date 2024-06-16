@@ -4,7 +4,11 @@ import { FaEye, FaEyeSlash, FaPlus } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import useAxiosPublic from '../../../Hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
+import useAuth from '../../../Hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 const Register = () => {
     const {
         register,
@@ -23,9 +27,12 @@ const Register = () => {
     const [districts, setDistricts] = useState([]);
     const [upazilas, setUpazilas] = useState([]);
 
+    const axiosPublic = useAxiosPublic();
+    const { register: createUser, namePhotoUrl } = useAuth();
+
+    const navigate = useNavigate();
 
     const password = watch('password');
-    const axiosPublic = useAxiosPublic();
 
 
 
@@ -83,9 +90,58 @@ const Register = () => {
     // console.log('This is value of upazilas:- ', upazilas);
 
     const onSubmit = (data) => {
-        console.log(data);
-        reset();
-        setImagePreview(null)
+        // console.log(data);
+        // reset();
+        createUser(data.email, data.password)
+            .then(async (res) => {
+                console.log(res.user);
+                const imageFile = { image: data.photo[0] }
+                const resImgBb = await axiosPublic.post(image_hosting_api, imageFile, {
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    }
+                });
+                if (resImgBb.data.success) {
+                    namePhotoUrl(data.name, resImgBb.data.data.display_url)
+                        .then(() => {
+                            const userInfo = {
+                                name: data.name,
+                                email: data.email,
+                                avatar: resImgBb.data.data.display_url,
+                                blood_group: data.bloodGroup,
+                                division: data.division,
+                                district: data.district,
+                                upazila: data.upazila,
+                                password: data.password,
+                                confirm_password: data.confirmPassword,
+                                status: 'active'
+                            }
+                            axiosPublic.post('/users', userInfo)
+                                .then(res => {
+                                    if (res.data.insertedId) {
+                                        console.log('User Added to the database');
+                                        reset();
+                                        setImagePreview(null);
+                                        Swal.fire({
+                                            position: "center",
+                                            icon: "success",
+                                            title: "User Created Successfully",
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                        });
+                                        navigate('/')
+                                    }
+                                })
+
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
 
     return (
