@@ -1,17 +1,29 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import logo from '../../../assets/Rokto borno logo.png'
 import DarkModeToggle from "../../../DarkModeToggle";
+import useAuth from "../../../Hooks/useAuth";
 
 const Navbar = () => {
     const location = useLocation();
-    console.log(location);
+    const { logOut, user } = useAuth();
+    console.log(user);
     const listItem = <>
         <li>
             <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/'>Home</NavLink>
         </li>
-        <li><NavLink to='/a'>donation requests</NavLink></li>
-        <li><NavLink to='/b'>blog</NavLink></li>
-        <li><NavLink to='/c'>funding</NavLink></li>
+        <li>
+            <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/a'>donation requests</NavLink>
+        </li>
+        <li>
+            <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/b'>blog</NavLink>
+        </li>
+        {
+            user && <>
+                <li>
+                    <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/c'>funding</NavLink>
+                </li>
+            </>
+        }
     </>
 
     return (
@@ -37,17 +49,31 @@ const Navbar = () => {
                 </div>
                 <div className="ml-2">
                     <DarkModeToggle />
-                    <div className="dropdown dropdown-end ml-4">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                            <div className="w-12 rounded-full">
-                                <img alt="Tailwind CSS Navbar component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                    {
+                        user ?
+                            <div className="dropdown dropdown-end ml-4">
+                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                    <div className="w-12 rounded-full">
+                                        <img alt="Tailwind CSS Navbar component" src={user?.photoURL} />
+                                    </div>
+                                </div>
+                                <ul tabIndex={0} className="menu menu-lg dropdown-content mt-7 z-[1] p-2 shadow dark:bg-myBgTheme-dark bg-myBgTheme-white w-64 uppercase rounded-b-lg font-myFont font-bold text-base text-myText-highDark dark:text-myText-highLight border-b-4 border-x-4 border-myBg-dark space-y-3">
+                                    <li><NavLink to='/dashBoard'>Dashboard</NavLink></li>
+                                    <li>
+                                        <button onClick={() => logOut()}>Logout</button>
+                                    </li>
+                                </ul>
                             </div>
-                        </div>
-                        <ul tabIndex={0} className="menu menu-lg dropdown-content mt-7 z-[1] p-2 shadow dark:bg-myBgTheme-dark bg-myBgTheme-white w-64 uppercase rounded-b-lg font-myFont font-bold text-base text-myText-highDark dark:text-myText-highLight border-b-4 border-x-4 border-myBg-dark space-y-3">
-                            <li><NavLink to='/dashBoard'>Dashboard</NavLink></li>
-                            <li><NavLink to='/logOut'>Logout</NavLink></li>
-                        </ul>
-                    </div>
+                            : <div className="text-center ml-4">
+                                <Link to='login'>
+                                    <button className="transition ease-in-out bg-blue-500 hover:scale-110 hover:bg-indigo-500 duration-300 text-xl text-myBg-dark font-bold my-1 dark:text-myBgTheme-white">Login</button>
+                                </Link>
+                                <div className="w-full h-1 bg-myBg-dark rounded-3xl"></div>
+                                <Link to='register'>
+                                    <button className="transition ease-in-out bg-blue-500 hover:scale-110 hover:bg-indigo-500 duration-300 text-xl text-myBg-dark font-bold my-1 dark:text-myBgTheme-white">Register</button>
+                                </Link>
+                            </div>
+                    }
                 </div>
             </div>
         </div>

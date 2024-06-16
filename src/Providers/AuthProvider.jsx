@@ -59,6 +59,7 @@ const AuthProvider = ({ children }) => {
             const userEmail = currentUser?.uid || user?.uid;
             const loaderUser = { uId: userEmail };
             console.log('User:------->', currentUser);
+            setUser(currentUser);
             setLoader(false); // Set loader to false after authentication state is determined
         });
         return () => {
