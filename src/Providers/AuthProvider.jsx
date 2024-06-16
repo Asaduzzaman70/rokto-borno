@@ -55,11 +55,10 @@ const AuthProvider = ({ children }) => {
     // Get User information
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
-            console.log(currentUser);
 
             const userEmail = currentUser?.uid || user?.uid;
             const loaderUser = { uId: userEmail };
-            console.log('UserEmail', currentUser);
+            console.log('User:------->', currentUser);
             setLoader(false); // Set loader to false after authentication state is determined
         });
         return () => {

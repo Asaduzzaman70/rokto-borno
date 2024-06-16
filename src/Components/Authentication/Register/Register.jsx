@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import useAxiosPublic from '../../../Hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../Hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
@@ -337,6 +337,9 @@ const Register = () => {
                         <input className="btn text-base uppercase bg-myBg-dark text-myBgTheme-white font-bold border-4 border-myBg-dark" type="submit" value="Create Account" />
                     </div>
                 </form>
+                <p className="md:text-base lg:text-xl text-myText-highDark dark:text-myText-mediumLight text-center">
+                    If you have an account? <Link to='/login' className="text-orange-500 hover:text-orange-800 text-myBg-dark dark:text-myBgTheme-white" href="#">Login</Link>
+                </p>
             </div >
         </div >
     );
