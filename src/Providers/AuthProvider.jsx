@@ -10,16 +10,16 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
     // loader
-    const [loader, setLoader] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     // Register
     const register = (email, password) => {
-        setLoader(true);
+        setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     }
     // Set User Name, PhotoURL
     const namePhotoUrl = (name, photo) => {
-        setLoader(true);
+        setLoading(true);
         return updateProfile(auth.currentUser, {
             displayName: name,
             photoURL: photo
@@ -28,7 +28,7 @@ const AuthProvider = ({ children }) => {
 
     // login with password
     const logIn = (email, password) => {
-        setLoader(true);
+        setLoading(true);
         return signInWithEmailAndPassword(auth, email, password)
     }
 
@@ -36,19 +36,19 @@ const AuthProvider = ({ children }) => {
     const logInWithMedia = (arg) => {
         if (arg === 'google') {
             const googleProvider = new GoogleAuthProvider();
-            setLoader(true);
+            setLoading(true);
             return signInWithPopup(auth, googleProvider);
         }
         else if (arg == 'gitHub') {
             const gitHubProvider = new GithubAuthProvider();
-            setLoader(true);
+            setLoading(true);
             return signInWithPopup(auth, gitHubProvider);
         }
     }
 
     // Sign Out
     const logOut = () => {
-        setLoader(true);
+        setLoading(true);
         return signOut(auth);
     }
 
@@ -60,7 +60,7 @@ const AuthProvider = ({ children }) => {
             const loaderUser = { uId: userEmail };
             console.log('User:------->', currentUser);
             setUser(currentUser);
-            setLoader(false); // Set loader to false after authentication state is determined
+            setLoading(false); // Set loader to false after authentication state is determined
         });
         return () => {
             unSubscribe();
@@ -73,7 +73,7 @@ const AuthProvider = ({ children }) => {
     const authInfo = {
         user,
         setUser,
-        loader,
+        loading,
         register,
         namePhotoUrl,
         logIn,
