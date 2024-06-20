@@ -20,7 +20,7 @@ const UserHome = () => {
     const { avatar, name, blood_group, district, division, email, upazila } = userInfo;
 
     return (
-        <div className="max-w-7xl rounded overflow-hidden shadow-lg p-6 mx-auto">
+        <div className="max-w-7xl rounded overflow-hidden shadow-lg p-6 mx-auto min-h-screen">
             <div tabIndex={0} role="button" className="avatar flex justify-center">
                 <div className="w-64 h-64 rounded-full border-8 border-myBg-dark shadow-2xl">
                     <img alt="Tailwind CSS Navbar component" src={avatar} />
@@ -32,7 +32,7 @@ const UserHome = () => {
                 <div className="mt-4 text-left text-3xl">
                     <p className="text-myBgTheme-white font-bold bg-myBg-dark p-3 rounded-xl"><strong>Blood Group: </strong>{blood_group} </p>
                 </div>
-                <div className="flex text-2xl justify-between my-12 text-myText-highDark dark:text-myBgTheme-white font-bold">
+                <div className="flex flex-col text-left md:text-center md:flex-row text-2xl md:justify-between my-12 text-myText-highDark dark:text-myBgTheme-white font-bold">
                     <p className=""><strong>Division : </strong>{division} </p>
                     <p className=""><strong>District : </strong>{district} </p>
                     <p className=""><strong>Upazila : </strong>{upazila} </p>
