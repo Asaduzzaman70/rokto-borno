@@ -93,6 +93,7 @@ const AuthProvider = ({ children }) => {
         logIn,
         logInWithMedia,
         logOut,
+        setLoading
     }
     return (
         <CreateContext.Provider value={authInfo}>

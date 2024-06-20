@@ -7,7 +7,7 @@ const PrivateRoute = ({ children }) => {
     const { user, loading } = useAuth();
     const location = useLocation();
     if (loading) {
-        return <div className="h-screen flex justify-center items-center"><img src={loadingBloodDrop} alt="" /></div>;;
+        return <div className="h-screen flex justify-center items-center"><img src={loadingBloodDrop} alt="" /></div>;
     }
     if (user) {
         return children;
