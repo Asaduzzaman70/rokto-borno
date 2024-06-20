@@ -1,6 +1,7 @@
 import { GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import { app } from "../Firebase/Firebase.config";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 export const CreateContext = createContext(null);
 
@@ -8,6 +9,7 @@ const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const axiosPublic = useAxiosPublic();
 
     // loader
     const [loading, setLoading] = useState(true);
@@ -55,12 +57,24 @@ const AuthProvider = ({ children }) => {
     // Get User information
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
-
-            const userEmail = currentUser?.uid || user?.uid;
-            const loaderUser = { uId: userEmail };
-            console.log('User:------->', currentUser);
             setUser(currentUser);
-            setLoading(false); // Set loader to false after authentication state is determined
+            // console.log('Current User:-', currentUser);
+            if (currentUser) {
+                // get token and store client
+                const userInfo = { email: currentUser.email };
+                axiosPublic.post('/jwt', userInfo)
+                    .then(res => {
+                        if (res.data.token) {
+                            localStorage.setItem('access-token', res.data.token);
+                            setLoading(false);
+                        }
+                    })
+            }
+            else {
+                // TODO: Remove token (if token stored in the client side: local storage, caching, in memory)
+                localStorage.removeItem('access-token');
+                setLoading(false);
+            }
         });
         return () => {
             unSubscribe();
