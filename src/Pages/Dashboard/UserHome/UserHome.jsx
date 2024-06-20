@@ -2,12 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
+import loadingBloodDrop from '../../../assets/Elements/Animation - 1718904614105.gif'
 
 const UserHome = () => {
     const { user } = useAuth();
 
     const axiosSecure = useAxiosSecure();
-    const { data: userInfo = [] } = useQuery({
+    const { data: userInfo = [], isLoading } = useQuery({
         queryKey: ['userInfo', user.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/users/${user.email}`)
@@ -16,6 +17,10 @@ const UserHome = () => {
     })
 
     console.log(userInfo);
+
+    if (isLoading) {
+        return <div className="h-screen flex justify-center items-center"><img src={loadingBloodDrop} alt="" /></div>;
+    }
 
     const { avatar, name, blood_group, district, division, email, upazila } = userInfo;
 
