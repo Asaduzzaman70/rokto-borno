@@ -10,6 +10,7 @@ import UserHome from "../Pages/Dashboard/UserHome/UserHome";
 import PrivateRoute from "./PrivateRoute";
 import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
 import EditDonation from "../Components/DashboardComponents/EditDonation/EditDonation";
+import ViewDetails from "../Components/DashboardComponents/ViewDetails/ViewDetails";
 
 export const router = createBrowserRouter([
     {
@@ -45,8 +46,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'userHome/editDonation/:id',
-                element: <EditDonation />,
-                loader: ({ params }) => fetch(`http://localhost:5000/donationRequest?id=${params.id}`)
+                element: <EditDonation />
+            },
+            {
+                path: 'userHome/viewDetails/:id',
+                element: <ViewDetails/>
             }
         ]
     }

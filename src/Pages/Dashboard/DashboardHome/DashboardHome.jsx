@@ -121,9 +121,11 @@ const DashboardHome = () => {
                                             </button>
                                         </td>
                                         <td>
-                                            <button className="btn bg-myText-mediumDark text-myBgTheme-white font-bold border-none">
-                                                <FaEye />
-                                            </button>
+                                            <Link to={`viewDetails/${donationReqData._id}`}>
+                                                <button className="btn bg-myText-mediumDark text-myBgTheme-white font-bold border-none">
+                                                    <FaEye />
+                                                </button>
+                                            </Link>
                                         </td>
                                         <td>
                                             {donationReqData.donationStatus === 'inprogress' && (
