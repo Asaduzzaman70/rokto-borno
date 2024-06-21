@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import loadingBloodDrop from '../../../assets/Elements/Animation - 1718904614105.gif'
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const DashboardHome = () => {
@@ -20,7 +21,41 @@ const DashboardHome = () => {
     if (isLoading) {
         return <div className="h-screen flex justify-center items-center"><img src={loadingBloodDrop} alt="" /></div>;
     }
-    console.log(donationReqDatas);
+    // console.log(donationReqDatas);
+
+    const handleDelete = donationReqData => {
+        console.log(donationReqData);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to delete this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.delete(`/donationRequest?id=${donationReqData._id}`)
+                    .then(res => {
+                        console.log(res.data.deletedCount);
+                        if (res.data.deletedCount > 0) {
+                            console.log('User Added to the database');
+                            refetch();
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: `${donationReqData.name} Is Deleted`,
+                                icon: "success"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+            }
+        });
+
+    }
+
     return (
         <div>
             <div className='text-center mb-14 md:mb-28'>
@@ -81,7 +116,7 @@ const DashboardHome = () => {
                                             </Link>
                                         </td>
                                         <td>
-                                            <button className="btn bg-myBg-dark text-myBgTheme-white font-bold border-none">
+                                            <button onClick={() => handleDelete(donationReqData)} className="btn bg-myBg-dark text-myBgTheme-white font-bold border-none">
                                                 <FaTrash />
                                             </button>
                                         </td>
