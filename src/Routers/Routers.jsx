@@ -9,6 +9,7 @@ import Dashboard from "../Layout/Dashboard";
 import UserHome from "../Pages/Dashboard/UserHome/UserHome";
 import PrivateRoute from "./PrivateRoute";
 import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
+import EditDonation from "../Components/DashboardComponents/EditDonation/EditDonation";
 
 export const router = createBrowserRouter([
     {
@@ -41,7 +42,11 @@ export const router = createBrowserRouter([
             {
                 path: 'profile',
                 element: <UserHome/>
-            } 
+            },
+            {
+                path: 'userHome/editDonation/:id',
+                element: <EditDonation/>
+            }
         ]
     }
 ]);

@@ -75,7 +75,7 @@ const DashboardHome = () => {
                                         </td>
                                         <td>{donationReqData.donationStatus === 'inprogress' && donationReqData.recipientEmail || donationReqData.donationStatus === 'done' && donationReqData.recipientEmail || donationReqData.donationStatus === 'canceled' && donationReqData.recipientEmail}</td>
                                         <td>
-                                            <Link to='editDonation'>
+                                            <Link to={`editDonation/${donationReqData._id}`}>
                                                 <button className="btn bg-myBtnColor-green text-myBgTheme-white font-bold border-none">
                                                     <FaEdit />
                                                 </button>
