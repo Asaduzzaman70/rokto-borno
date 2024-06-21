@@ -23,6 +23,11 @@ export default {
         mediumDark: '#34495e',
         highDark: '#2c3e50'
       },
+      myBtnColor :{
+        green: '#009432',
+        yellow: '#F79F1F',
+        blue: '#12CBC4',
+      }
     },
     fontFamily: {
       myFont: "Source Sans 3"
