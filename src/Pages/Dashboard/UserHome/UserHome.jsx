@@ -30,7 +30,7 @@ const UserHome = () => {
     const { avatar, name, blood_group, district, division, email, upazila } = userInfo;
 
     return (
-        <div className="w-full md:max-w-7xl rounded overflow-hidden shadow-lg mx-auto min-h-screen">
+        <div className="w-full md:max-w-7xl rounded overflow-hidden shadow-lg mx-auto min-h-screen p-6">
             {
                 !isEditing ?
                     <>

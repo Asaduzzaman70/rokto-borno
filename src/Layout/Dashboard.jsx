@@ -1,6 +1,6 @@
-import { FaHome } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import DarkModeToggle from "../DarkModeToggle";
+import { FaHome, FaUser } from "react-icons/fa";
 
 const Dashboard = () => {
 
@@ -8,7 +8,13 @@ const Dashboard = () => {
         <li>
             <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/dashboard/userHome'>
                 <FaHome />
-                User Home
+                Dashboard
+            </NavLink>
+        </li>
+        <li>
+            <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/dashboard/profile'>
+                <FaUser />
+                Profile
             </NavLink>
         </li>
     </>
@@ -20,7 +26,7 @@ const Dashboard = () => {
                     <DarkModeToggle />
                 </div>
                 <div className="hidden lg:flex">
-                    <ul className="menu p-4 text-xl uppercase font-myFont font-bold text-myText-highDark dark:text-myText-highLight space-x-3 w-full">
+                    <ul className="menu p-4 text-xl uppercase font-myFont font-bold text-myText-highDark dark:text-myText-highLight space-y-3 w-full">
                         {navbarList}
                     </ul>
                 </div>
