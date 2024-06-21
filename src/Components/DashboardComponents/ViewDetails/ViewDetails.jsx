@@ -36,26 +36,26 @@ const ViewDetails = () => {
                 <div className="bg-white shadow-md rounded-lg p-8 max-w-5xl w-full">
                     <h1 className="text-4xl font-bold mb-4 text-center text-myText-highDark uppercase dark:text-myBgTheme-white">Donation Details</h1>
                     <div className="space-y-4">
-                        <div>
+                        <div className="space-y-3">
                             <h2 className="text-2xl font-bold text-myBg-dark border-b-4 dark:text-myBgTheme-white dark:bg-myBg-dark dark:p-2">Recipient Information</h2>
                             <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">Name:</span> {recipientName}</p>
                             <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">Email:</span> {recipientEmail}</p>
                             <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">District:</span> {recipientDistrict}</p>
                             <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">Upazila:</span> {recipientUpazila}</p>
                         </div>
-                        <div>
+                        <div className="space-y-3">
                             <h2 className="text-2xl font-bold text-myBg-dark border-b-4 dark:text-myBgTheme-white dark:bg-myBg-dark dark:p-2">Hospital Information</h2>
                             <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">Name:</span> {hospitalName}</p>
                             <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">Address:</span> {fullAddress}</p>
                         </div>
-                        <div>
+                        <div className="space-y-3">
                             <h2 className="text-2xl font-bold text-myBg-dark border-b-4 dark:text-myBgTheme-white dark:bg-myBg-dark dark:p-2">Donation Information</h2>
                             <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">Date:</span> {donationDate}</p>
                             <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">Time:</span> {donationTime}</p>
                             <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">Request Message:</span> {requestMessage}</p>
                             <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">Status:</span> {donationStatus}</p>
                         </div>
-                        <div>
+                        <div className="space-y-3">
                             <h2 className="text-2xl font-bold text-myBg-dark border-b-4 dark:text-myBgTheme-white dark:bg-myBg-dark dark:p-2">Donor Information</h2>
                             <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">Email:</span> {donorEmail}</p>
                         </div>

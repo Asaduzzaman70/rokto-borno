@@ -11,6 +11,7 @@ import PrivateRoute from "./PrivateRoute";
 import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
 import EditDonation from "../Components/DashboardComponents/EditDonation/EditDonation";
 import ViewDetails from "../Components/DashboardComponents/ViewDetails/ViewDetails";
+import MyDonationRequests from "../Components/DashboardComponents/MyDonationRequests/MyDonationRequests";
 
 export const router = createBrowserRouter([
     {
@@ -50,7 +51,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'userHome/viewDetails/:id',
-                element: <ViewDetails/>
+                element: <ViewDetails />
+            },
+            {
+                path: 'userHome/myDonationRequests',
+                element: <MyDonationRequests />
             }
         ]
     }
