@@ -86,7 +86,7 @@ const DashboardHome = () => {
                         </thead>
                         <tbody>
                             {
-                                donationReqDatas.slice(0, 3).map((donationReqData, idx) =>
+                                donationReqDatas.slice(donationReqDatas.length - 3, donationReqDatas.length).map((donationReqData, idx) =>
                                     <tr key={donationReqData._id} className="text-myText-highDark dark:text-myBgTheme-white font-bold">
                                         <th>{idx + 1}</th>
                                         <td>{donationReqData.recipientName}</td>
@@ -151,6 +151,13 @@ const DashboardHome = () => {
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div className="text-center mt-12">
+                <Link to={'myDonationRequests'}>
+                    <button className="btn text-base uppercase bg-myBg-dark text-myBgTheme-white font-bold border-4 border-myBg-dark">
+                        view my all request
+                    </button>
+                </Link>
             </div>
         </div>
     );
