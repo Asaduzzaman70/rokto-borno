@@ -14,38 +14,39 @@ import EditDonation from "../Components/DashboardComponents/EditDonation/EditDon
 export const router = createBrowserRouter([
     {
         path: "/",
-        element: <Main/>,
+        element: <Main />,
         children: [
             {
                 path: '/',
-                element: <HomeLayout/>
+                element: <HomeLayout />
             },
             {
                 path: 'register',
-                element: <Register/>
+                element: <Register />
             },
             {
                 path: 'login',
-                element: <Login/>
+                element: <Login />
             }
         ]
     },
     {
         path: 'dashboard',
-        element: <PrivateRoute><Dashboard/></PrivateRoute>,
+        element: <PrivateRoute><Dashboard /></PrivateRoute>,
         children: [
             // normal user routes
             {
                 path: 'userHome',
-                element: <DashboardHome/>
+                element: <DashboardHome />
             },
             {
                 path: 'profile',
-                element: <UserHome/>
+                element: <UserHome />
             },
             {
                 path: 'userHome/editDonation/:id',
-                element: <EditDonation/>
+                element: <EditDonation />,
+                loader: ({ params }) => fetch(`http://localhost:5000/donationRequest?id=${params.id}`)
             }
         ]
     }

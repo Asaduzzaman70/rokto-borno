@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 const DashboardHome = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
-    const { data: donationReqDatas = [], isLoading } = useQuery({
+    const { data: donationReqDatas = [], isLoading, refetch } = useQuery({
         queryKey: ['donationReqData', user.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/donationRequest?email=${user?.email}`);
@@ -20,7 +20,6 @@ const DashboardHome = () => {
     if (isLoading) {
         return <div className="h-screen flex justify-center items-center"><img src={loadingBloodDrop} alt="" /></div>;
     }
-
     console.log(donationReqDatas);
     return (
         <div>

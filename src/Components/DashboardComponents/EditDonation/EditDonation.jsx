@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useForm } from "react-hook-form";
 import loadingBloodDrop from '../../../assets/Elements/Animation - 1718904614105.gif'
+import Swal from "sweetalert2";
+import { useState } from "react";
 
 
 const EditDonation = () => {
@@ -11,35 +13,59 @@ const EditDonation = () => {
         register,
         handleSubmit,
         formState: { errors },
-        watch,
         reset
     } = useForm({ mode: 'onTouched' });
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const { user } = useAuth();
 
     const axiosSecure = useAxiosSecure();
 
-    const { data: donationEdit, isLoading } = useQuery({
+    const [donationEdit, setDonationEdit] = useState([])
+
+    const { isPending } = useQuery({
         queryKey: ['donationEdit', user.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`donationRequest?id=${id}`);
-            return res.data;
+            setDonationEdit(res.data);
         }
     })
 
-    // console.log(donationEdit);
-    if (isLoading) {
+    console.log(donationEdit);
+    if (isPending) {
         return <div className="h-screen flex justify-center items-center"><img src={loadingBloodDrop} alt="" /></div>;
     }
 
     const onSubmit = (data) => {
         console.log(data);
+        axiosSecure.patch(`/donationRequest/${id}`, data)
+            .then(res => {
+                if (res.data.modifiedCount > 0) {
+                    console.log('User Added to the database');
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Update Successfully",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else {
+                    Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: "No Changes",
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+                // console.log(res.data);
+                navigate('/dashboard/userHome/')
+            })
     }
 
     return (
         <div>
-            <h1>ferwf</h1>
             <form onSubmit={handleSubmit(onSubmit)} className="card-body grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 <div className="form-control">
                     <label className="label">
@@ -134,7 +160,7 @@ const EditDonation = () => {
                 </div>
                 {/* Submit */}
                 <div className="form-control mt-6">
-                    <input className="btn text-base uppercase bg-myBg-dark text-myBgTheme-white font-bold border-4 border-myBg-dark" type="submit" value="Create Account" />
+                    <input className="btn text-base uppercase bg-myBg-dark text-myBgTheme-white font-bold border-4 border-myBg-dark" type="submit" value="Edit Donation Request" />
                 </div>
             </form>
         </div>
