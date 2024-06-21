@@ -2,22 +2,39 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { Link, useNavigate } from "react-router-dom";
-import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
+import { FaArrowDown, FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import loadingBloodDrop from '../../../assets/Elements/Animation - 1718904614105.gif'
 import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
 
 
 const MyDonationRequests = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
-    const { data: donationReqDatas = [], isLoading, refetch } = useQuery({
+    const [filterText, setFilterText] = useState('filtering');
+
+    const { data: reqData = [], isLoading, refetch } = useQuery({
         queryKey: ['donationReqData', user.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/donationRequest?email=${user?.email}`);
             return res.data;
         }
     })
-    console.log(donationReqDatas);
+
+
+    const [donationReq, setDonationReq] = useState(reqData);
+    useEffect(() => {
+        setDonationReq(reqData)
+    }, [reqData])
+
+
+    const [donationReqDatas, setDonationReqDatas] = useState(donationReq);
+    useEffect(() => {
+        setDonationReqDatas(donationReq)
+    }, [donationReq])
+    // console.log(donationReqDatas);
+
+
 
     const handleDelete = donationReqData => {
         console.log(donationReqData);
@@ -52,12 +69,54 @@ const MyDonationRequests = () => {
 
     }
 
+    const handleFilter = arg => {
+        if (arg === 'pending') {
+            setFilterText('pending');
+            const filter = donationReq.filter(dataReq => dataReq.donationStatus === 'pending');
+            setDonationReqDatas(filter)
+        }
+        if (arg === 'inprogress') {
+            setFilterText('inprogress');
+            const filter = donationReq.filter(dataReq => dataReq.donationStatus === 'inprogress');
+            setDonationReqDatas(filter)
+        }
+        if (arg === 'done') {
+            setFilterText('done');
+            const filter = donationReq.filter(dataReq => dataReq.donationStatus === 'done');
+            setDonationReqDatas(filter)
+        }
+        if (arg === 'canceled') {
+            setFilterText('canceled')
+            const filter = donationReq.filter(dataReq => dataReq.donationStatus === 'canceled');
+            setDonationReqDatas(filter)
+        }
+    }
+
     if (isLoading) {
         return <div className="h-screen flex justify-center items-center"><img src={loadingBloodDrop} alt="" /></div>;
     }
 
     return (
         <div>
+            <div>
+                <div className="dropdown">
+                    <div tabIndex={0} role="button" className="btn m-1 text-base uppercase bg-myBg-dark text-myBgTheme-white font-bold border-4 border-myBg-dark">{filterText} <FaArrowDown /></div>
+                    <ul tabIndex={0} className="menu menu-lg dropdown-content z-[1] p-2 shadow dark:bg-myBgTheme-dark bg-myBgTheme-white w-64 uppercase rounded-b-lg font-myFont font-bold text-base text-myText-highDark dark:text-myText-highLight border-b-4 border-x-4 border-myBg-dark space-y-3">
+                        <li>
+                            <button onClick={() => handleFilter('pending')}>Pending</button>
+                        </li>
+                        <li>
+                            <button onClick={() => handleFilter('inprogress')}>Inprogress</button>
+                        </li>
+                        <li>
+                            <button onClick={() => handleFilter('done')}>Done</button>
+                        </li>
+                        <li>
+                            <button onClick={() => handleFilter('canceled')}>Canceled</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
             <div>
                 <div className="overflow-x-auto rounded-t-2xl">
                     <table className="table w-full">

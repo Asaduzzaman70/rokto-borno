@@ -20,7 +20,7 @@ const Dashboard = () => {
     </>
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-7">
+        <div className="grid grid-cols-1 lg:grid-cols-6 w-full">
             <div className="w-64 hidden lg:inline-block min-h-screen bg-myBgTheme-white dark:bg-myText-mediumDark shadow-xl rounded-r-xl">
                 <div className="flex justify-end mr-4 mt-4">
                     <DarkModeToggle />
@@ -31,7 +31,7 @@ const Dashboard = () => {
                     </ul>
                 </div>
             </div>
-            <div className="col-span-6 p-8 container mx-auto">
+            <div className="col-span-5 p-8 container mx-auto">
                 <div className="flex justify-between">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="lg:hidden btn btn-ghost">
