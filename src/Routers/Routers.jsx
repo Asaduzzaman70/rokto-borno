@@ -19,6 +19,7 @@ import AdminRoute from "./AdminRoute";
 import AllDonationRequest from "../Pages/Admin/AllDonationRequest/AllDonationRequest";
 import ContentManagement from "../Pages/Admin/ContentManagement/ContentManagement";
 import AddBlog from "../Components/DashboardComponents/AddBlog/AddBlog";
+import BloodDonationRequest from "../Pages/BloodDonationRequest/BloodDonationRequest";
 
 export const router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
             {
                 path: 'login',
                 element: <Login />
+            },
+            {
+                path: 'allRequest',
+                element: <BloodDonationRequest/>
             }
         ]
     },
