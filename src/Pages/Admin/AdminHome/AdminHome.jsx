@@ -3,13 +3,15 @@ import useAuth from '../../../Hooks/useAuth';
 import { FaBook, FaDollarSign, FaRegListAlt, FaShippingFast, FaUsers } from 'react-icons/fa';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
+import loadingBloodDrop from '../../../assets/Elements/Animation - 1718904614105.gif'
+
 
 const AdminHome = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
 
 
-    const { data: stats = {} } = useQuery({
+    const { data: stats = {}, isLoading } = useQuery({
         queryKey: ['admin-stats'],
         queryFn: async () => {
             const res = await axiosSecure.get('/admin-stats');
@@ -18,6 +20,11 @@ const AdminHome = () => {
     });
 
     console.log(stats);
+
+
+    if (isLoading) {
+        return <div className="h-screen flex justify-center items-center"><img src={loadingBloodDrop} alt="" /></div>;
+    }
 
     return (
         <div>

@@ -2,6 +2,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import logo from '../../../assets/Rokto borno logo.png'
 import DarkModeToggle from "../../../DarkModeToggle";
 import useAuth from "../../../Hooks/useAuth";
+import useAdmin from "../../../Hooks/useAdmin";
 
 const Navbar = () => {
     const location = useLocation();
@@ -26,8 +27,8 @@ const Navbar = () => {
         }
     </>
 
-    // const [isAdmin] = useAdmin();
-    const isAdmin = true;
+    const [isAdmin] = useAdmin();
+    // const isAdmin = true;
 
     return (
         <div className="shadow-2xl dark:bg-myBgTheme-dark bg-myBgTheme-white">

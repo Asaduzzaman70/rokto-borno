@@ -2,10 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { FaArrowDown, FaRegTrashAlt, FaUsers } from "react-icons/fa";
 import SingleUser from "./SingleUser";
+import loadingBloodDrop from '../../../assets/Elements/Animation - 1718904614105.gif'
+
 
 const AllUsers = () => {
     const axiosSecure = useAxiosSecure();
-    const { data: users = [], refetch } = useQuery({
+    const { data: users = [], refetch, isLoading } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const res = await axiosSecure.get('/users')
@@ -13,7 +15,9 @@ const AllUsers = () => {
         }
     })
 
-
+    if (isLoading) {
+        return <div className="h-screen flex justify-center items-center"><img src={loadingBloodDrop} alt="" /></div>;
+    }
 
     return (
         <div className="mb-20">
@@ -38,7 +42,7 @@ const AllUsers = () => {
                     <tbody>
                         {
                             users.map((user, idx) =>
-                                <SingleUser key={user._id} user={user} idx={idx} refetch={refetch}/>
+                                <SingleUser key={user._id} user={user} idx={idx} refetch={refetch} />
                             )
                         }
                     </tbody>

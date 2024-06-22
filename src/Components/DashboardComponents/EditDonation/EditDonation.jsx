@@ -60,7 +60,7 @@ const EditDonation = () => {
                     })
                 }
                 // console.log(res.data);
-                navigate('/dashboard/userHome/')
+                // navigate('/dashboard/userHome/')
             })
     }
 
