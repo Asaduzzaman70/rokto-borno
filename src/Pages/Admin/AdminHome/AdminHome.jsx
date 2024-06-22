@@ -1,9 +1,24 @@
 import React from 'react';
 import useAuth from '../../../Hooks/useAuth';
 import { FaBook, FaDollarSign, FaRegListAlt, FaShippingFast, FaUsers } from 'react-icons/fa';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
 
 const AdminHome = () => {
     const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
+
+
+    const { data: stats = {} } = useQuery({
+        queryKey: ['admin-stats'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/admin-stats');
+            return res.data;
+        }
+    });
+
+    console.log(stats);
+
     return (
         <div>
             <div className='text-center mb-14'>
@@ -20,7 +35,7 @@ const AdminHome = () => {
                         <div className="stat-figure">
                             <FaUsers />
                         </div>
-                        <div className="font-bold">12</div>
+                        <div className="font-bold">{stats.users}</div>
                     </div>
                 </div>
 
@@ -30,7 +45,7 @@ const AdminHome = () => {
                         <div className="stat-figure">
                             <FaDollarSign />
                         </div>
-                        <div className="font-bold">500</div>
+                        <div className="font-bold">{stats.revenue}</div>
                     </div>
                 </div>
 
@@ -40,7 +55,7 @@ const AdminHome = () => {
                         <div className="stat-figure">
                             <FaRegListAlt />
                         </div>
-                        <div className="font-bold">10</div>
+                        <div className="font-bold">{stats.donation}</div>
                     </div>
                 </div>
 
