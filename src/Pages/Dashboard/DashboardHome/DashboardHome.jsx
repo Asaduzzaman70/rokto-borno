@@ -153,7 +153,7 @@ const DashboardHome = () => {
                 </div>
             </div>
             <div className="text-center mt-12">
-                <Link to={'myDonationRequests'}>
+                <Link to={'/dashboard/myDonationRequests'}>
                     <button className="btn text-base uppercase bg-myBg-dark text-myBgTheme-white font-bold border-4 border-myBg-dark">
                         view my all request
                     </button>
