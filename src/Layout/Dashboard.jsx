@@ -3,32 +3,47 @@ import DarkModeToggle from "../DarkModeToggle";
 import { FaHome, FaListAlt, FaRegEdit, FaUser } from "react-icons/fa";
 
 const Dashboard = () => {
+    // const [isAdmin] = useAdmin();
+    const isAdmin = true;
 
     const navbarList = <>
-        <li>
-            <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/dashboard/userHome'>
-                <FaHome />
-                Dashboard
-            </NavLink>
-        </li>
-        <li>
-            <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/dashboard/profile'>
-                <FaUser />
-                Profile
-            </NavLink>
-        </li>
-        <li>
-            <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/dashboard/myDonationRequests'>
-                <FaListAlt />
-                My Requests
-            </NavLink>
-        </li>
-        <li>
-            <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/dashboard/createDonationReq'>
-                <FaRegEdit />
-                Create Request
-            </NavLink>
-        </li>
+        {
+            isAdmin ?
+                <>
+                    <li>
+                        <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/dashboard/adminHome'>
+                            <FaHome />
+                            Admin Home
+                        </NavLink>
+                    </li>
+                </>
+                : <>
+                    <li>
+                        <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/dashboard/userHome'>
+                            <FaHome />
+                            Dashboard
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/dashboard/profile'>
+                            <FaUser />
+                            Profile
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/dashboard/myDonationRequests'>
+                            <FaListAlt />
+                            My Requests
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/dashboard/createDonationReq'>
+                            <FaRegEdit />
+                            Create Request
+                        </NavLink>
+                    </li>
+                </>
+        }
     </>
 
     return (

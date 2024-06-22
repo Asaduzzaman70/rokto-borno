@@ -26,6 +26,9 @@ const Navbar = () => {
         }
     </>
 
+    // const [isAdmin] = useAdmin();
+    const isAdmin = true;
+
     return (
         <div className="shadow-2xl dark:bg-myBgTheme-dark bg-myBgTheme-white">
             <div className="navbar container mx-auto py-3 justify-between">
@@ -58,7 +61,9 @@ const Navbar = () => {
                                     </div>
                                 </div>
                                 <ul tabIndex={0} className="menu menu-lg dropdown-content mt-7 z-[1] p-2 shadow dark:bg-myBgTheme-dark bg-myBgTheme-white w-64 uppercase rounded-b-lg font-myFont font-bold text-base text-myText-highDark dark:text-myText-highLight border-b-4 border-x-4 border-myBg-dark space-y-3">
-                                    <li><NavLink to='/dashBoard/userHome'>Dashboard</NavLink></li>
+                                    <li>{isAdmin ?
+                                        <NavLink to='/dashBoard/adminHome'>Dashboard</NavLink>
+                                        : <NavLink to='/dashBoard/userHome'>Dashboard</NavLink>}</li>
                                     <li>
                                         <button onClick={() => logOut()}>Logout</button>
                                     </li>
