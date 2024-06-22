@@ -114,7 +114,8 @@ const Register = () => {
                                 upazila: data.upazila,
                                 password: data.password,
                                 confirm_password: data.confirmPassword,
-                                status: 'active'
+                                status: 'active',
+                                role: 'donner'
                             }
                             axiosPublic.post('/users', userInfo)
                                 .then(res => {

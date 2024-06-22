@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import DarkModeToggle from "../DarkModeToggle";
-import { FaHome, FaListAlt, FaRegEdit, FaUser } from "react-icons/fa";
+import { FaHome, FaListAlt, FaRegEdit, FaUser, FaUsers } from "react-icons/fa";
 
 const Dashboard = () => {
     // const [isAdmin] = useAdmin();
@@ -14,6 +14,12 @@ const Dashboard = () => {
                         <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/dashboard/adminHome'>
                             <FaHome />
                             Admin Home
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/dashboard/allUsers'>
+                            <FaUsers />
+                            All Users
                         </NavLink>
                     </li>
                 </>
