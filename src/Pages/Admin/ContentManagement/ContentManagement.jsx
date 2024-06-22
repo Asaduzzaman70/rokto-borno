@@ -8,7 +8,7 @@ import BlogItem from "../../../Components/DashboardComponents/BlogItem/BlogItem"
 const ContentManagement = () => {
     const axiosSecure = useAxiosSecure();
 
-    const { data: blogInfo = [], isLoading } = useQuery({
+    const { data: blogInfo = [], isLoading, refetch } = useQuery({
         queryKey: ['blogInfo'],
         queryFn: async () => {
             const res = await axiosSecure.get('/blog');
@@ -31,7 +31,7 @@ const ContentManagement = () => {
             </div>
             <div className="space-y-4 mt-6">
                 {
-                    blogInfo.map(blog => <BlogItem key={blog._id} blog={blog}/>)
+                    blogInfo.map(blog => <BlogItem key={blog._id} blog={blog} refetch={refetch}/>)
                 }
             </div>
         </div>
