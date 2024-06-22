@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import DarkModeToggle from "../DarkModeToggle";
-import { FaHome, FaUser } from "react-icons/fa";
+import { FaHome, FaRegEdit, FaUser } from "react-icons/fa";
 
 const Dashboard = () => {
 
@@ -17,11 +17,17 @@ const Dashboard = () => {
                 Profile
             </NavLink>
         </li>
+        <li>
+            <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/dashboard/createDonationReq'>
+                <FaRegEdit />
+                Create Request
+            </NavLink>
+        </li>
     </>
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-6 w-full">
-            <div className="w-64 hidden lg:inline-block min-h-screen bg-myBgTheme-white dark:bg-myText-mediumDark shadow-xl rounded-r-xl">
+        <div className="grid grid-cols-1 lg:grid-cols-6">
+            <div className="w-full hidden lg:inline-block min-h-screen bg-myBgTheme-white dark:bg-myText-mediumDark shadow-xl rounded-r-xl">
                 <div className="flex justify-end mr-4 mt-4">
                     <DarkModeToggle />
                 </div>
