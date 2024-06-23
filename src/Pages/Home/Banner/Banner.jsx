@@ -17,7 +17,7 @@ const Banner = () => {
                             dark:text-myBgTheme-white
                             '>Join as a donor</button>
                         </Link>
-                        <Link>
+                        <Link to='/searchDonors'>
                             <button className='btn text-base uppercase bg-myBg-dark text-myBgTheme-white font-bold border-4 border-myBg-dark'>Search Donors</button>
                         </Link>
                     </div>
