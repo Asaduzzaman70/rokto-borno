@@ -18,7 +18,7 @@ const ViewDetails = () => {
     })
 
     console.log(donationReqInf);
-    const { donationDate, donationStatus, donationTime, donorEmail, fullAddress, hospitalName, recipientDistrict, recipientEmail, recipientName, recipientUpazila, requestMessage } = donationReqInf;
+    const { donationDate, donationStatus, donationTime, donorEmail, fullAddress, hospitalName, recipientDistrict, recipientName, recipientUpazila, requestMessage } = donationReqInf;
 
     if (isLoading) {
         return <div className="h-screen flex justify-center items-center"><img src={loadingBloodDrop} alt="" /></div>;
@@ -39,7 +39,6 @@ const ViewDetails = () => {
                         <div className="space-y-3">
                             <h2 className="text-2xl font-bold text-myBg-dark border-b-4 dark:text-myBgTheme-white dark:bg-myBg-dark dark:p-2">Recipient Information</h2>
                             <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">Name:</span> {recipientName}</p>
-                            <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">Email:</span> {recipientEmail}</p>
                             <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">District:</span> {recipientDistrict}</p>
                             <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">Upazila:</span> {recipientUpazila}</p>
                         </div>

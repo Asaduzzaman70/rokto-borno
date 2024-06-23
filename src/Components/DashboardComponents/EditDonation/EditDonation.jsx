@@ -82,19 +82,6 @@ const EditDonation = () => {
                 </div>
                 <div className="form-control">
                     <label className="label">
-                        <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark">Recipient Email*</span>
-                    </label>
-                    <input
-                        {...register('recipientEmail', { required: true })}
-                        type="email"
-                        placeholder="Recipient Email"
-                        defaultValue={donationEdit.recipientEmail}
-                        className="input input-lg bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:text-myBgTheme-white"
-                    />
-                    {errors.recipientEmail && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2">*Email field is required</p>}
-                </div>
-                <div className="form-control">
-                    <label className="label">
                         <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark">Full Address*</span>
                     </label>
                     <input

@@ -159,7 +159,7 @@ const AllDonationRequest = () => {
                                                 {donationReqData.donationStatus === 'canceled' && donationReqData.donationStatus}
                                             </span>
                                         </td>
-                                        <td>{donationReqData.donationStatus === 'inprogress' && donationReqData.recipientEmail || donationReqData.donationStatus === 'done' && donationReqData.recipientEmail || donationReqData.donationStatus === 'canceled' && donationReqData.recipientEmail}</td>
+                                        <td>{donationReqData.donationStatus === 'inprogress' && donationReqData.donorEmail || donationReqData.donationStatus === 'done' && donationReqData.donorEmail || donationReqData.donationStatus === 'canceled' && donationReqData.donorEmail}</td>
                                         <td>
                                             <Link to={`/dashboard/userHome/editDonation/${donationReqData._id}`}>
                                                 <button className="btn bg-myBtnColor-green text-myBgTheme-white font-bold border-none">

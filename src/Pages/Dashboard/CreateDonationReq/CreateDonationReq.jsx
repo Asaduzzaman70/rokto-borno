@@ -73,11 +73,13 @@ const CreateDonationReq = () => {
     // console.log(userInfo);
 
     const onSubmit = (data) => {
+        console.log(data);
         if (userInfo.status === "active") {
             const reqData = {
                 ...data,
                 donationStatus: "pending",
-                donorEmail: userInfo.email
+                requesterName: userInfo.name,
+                requesterEmail: userInfo.email
             }
             console.log(reqData);
 
@@ -112,33 +114,41 @@ const CreateDonationReq = () => {
             </div>
             <div className='card shrink-0 shadow-2xl h-full border-x-4 border-myBg-dark mx-auto md:px-12 py-12'>
                 <form onSubmit={handleSubmit(onSubmit)} className="card-body grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* recipientName */}
+                    {/* requester name */}
+                    <div className="form-control flex gap-6 lg:flex-row lg:gap-10">
+                        <div>
+                            <label className="label">
+                                <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark capitalize">
+                                    Requester Name*
+                                </span>
+                            </label>
+                            <h3
+                                className='text-2xl text-myText-highDark font-semibold dark:text-myBgTheme-white capitalize'
+                            >{user.displayName}</h3>
+                        </div>
+                        <div>
+                            <label className="label">
+                                <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark capitalize">
+                                    Requester Email*
+                                </span>
+                            </label>
+                            <h3
+                                className='text-2xl text-myText-highDark font-semibold dark:text-myBgTheme-white capitalize'
+                            >{user.email}</h3>
+                        </div>
+                    </div>
+                    {/* Recipient Name */}
                     <div className="form-control">
                         <label className="label">
-                            <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark capitalize">
-                                Recipient Name*
-                            </span>
+                            <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark">Recipient Name*</span>
                         </label>
                         <input
                             {...register('recipientName', { required: true })}
                             type="text"
-                            placeholder="Recipient Name"
+                            placeholder="Recipient Email"
                             className="input input-lg bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:text-myBgTheme-white capitalize" />
 
-                        {errors.recipientName && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2 capitalize">*Name field is required</p>}
-                    </div>
-                    {/* Email */}
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text text-lg text-myBg-dark font-bold dark:text-myBgTheme-white dark:border-b-4 dark:border-myBg-dark">Recipient Email*</span>
-                        </label>
-                        <input
-                            {...register('recipientEmail', { required: true })}
-                            type="email"
-                            placeholder="Recipient Email"
-                            className="input input-lg bg-transparent border-2 border-myBg-dark text-myText-highDark font-semibold dark:text-myBgTheme-white" />
-
-                        {errors.recipientEmail && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2 capitalize">*Email field is required</p>}
+                        {errors.recipientName && <p className="text-myBg-dark dark:text-myBgTheme-white text-sm mt-2 capitalize">*Email field is required</p>}
                     </div>
                     {/* hospitalName */}
                     <div className="form-control">
