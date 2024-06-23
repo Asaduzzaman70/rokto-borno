@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import imgLogin from '../../../assets/Elements/login.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import useAuth from '../../../Hooks/useAuth';
 
@@ -9,6 +9,7 @@ const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onTouched' });
   const [showPassword, setShowPassword] = useState(false);
   const { logIn } = useAuth();
+  const navigate = useNavigate();
 
 
   const onSubmit = data => {
@@ -19,6 +20,7 @@ const Login = () => {
     logIn(email, password)
       .then(res => {
         console.log('User Logged:-',res.user);
+        navigate('/')
       })
       .catch(error => {
         console.log(error);

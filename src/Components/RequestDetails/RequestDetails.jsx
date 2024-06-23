@@ -2,12 +2,15 @@ import { useParams } from "react-router-dom";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import loadingBloodDrop from '../../assets/Elements/Animation - 1718904614105.gif'
+import DonateModal from "../DonateModal/DonateModal";
+import useAuth from "../../Hooks/useAuth";
 
 
 const RequestDetails = () => {
     const axiosSecure = useAxiosSecure();
+    const {user} = useAuth();
     const { id } = useParams();
-    console.log(id);
+    // console.log(id);
 
     const { data: requestInfo = [], isLoading } = useQuery({
         queryKey: ['donationReqInf'],
@@ -17,8 +20,8 @@ const RequestDetails = () => {
         }
     })
 
-    console.log(requestInfo);
-    const { donationDate, donationStatus, donationTime, requesterName, requesterEmail, fullAddress, hospitalName, recipientDistrict, recipientName, recipientUpazila, requestMessage } = requestInfo;
+    // console.log(requestInfo);
+    const { donationDate, donationStatus, donationTime, requesterName, requesterEmail, fullAddress, hospitalName, recipientDistrict, recipientName, recipientUpazila, requestMessage, _id } = requestInfo;
 
     if (isLoading) {
         return <div className="h-screen flex justify-center items-center"><img src={loadingBloodDrop} alt="" /></div>;
@@ -62,7 +65,7 @@ const RequestDetails = () => {
                         </div>
                     </div>
                     <div className="text-center mt-24">
-                        <button className="btn text-base uppercase bg-myBg-dark text-myBgTheme-white font-bold border-4 border-myBg-dark w-1/5">donate</button>
+                        <DonateModal user={user} axiosSecure={axiosSecure} _id={_id}/>
                     </div>
                 </div>
             </div>

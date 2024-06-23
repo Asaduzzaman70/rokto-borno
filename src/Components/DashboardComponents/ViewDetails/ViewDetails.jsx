@@ -18,7 +18,7 @@ const ViewDetails = () => {
     })
 
     console.log(donationReqInf);
-    const { donationDate, donationStatus, donationTime, donorEmail, fullAddress, hospitalName, recipientDistrict, recipientName, recipientUpazila, requestMessage } = donationReqInf;
+    const { donationDate, donationStatus, donationTime, fullAddress, hospitalName, recipientDistrict, recipientName, recipientUpazila, requestMessage, donarEmail, donarName } = donationReqInf;
 
     if (isLoading) {
         return <div className="h-screen flex justify-center items-center"><img src={loadingBloodDrop} alt="" /></div>;
@@ -54,10 +54,13 @@ const ViewDetails = () => {
                             <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">Request Message:</span> {requestMessage}</p>
                             <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">Status:</span> {donationStatus}</p>
                         </div>
-                        <div className="space-y-3">
-                            <h2 className="text-2xl font-bold text-myBg-dark border-b-4 dark:text-myBgTheme-white dark:bg-myBg-dark dark:p-2">Donor Information</h2>
-                            <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">Email:</span> {donorEmail}</p>
-                        </div>
+                        {
+                            donarEmail && <div className="space-y-3">
+                                <h2 className="text-2xl font-bold text-myBg-dark border-b-4 dark:text-myBgTheme-white dark:bg-myBg-dark dark:p-2">Donor Information</h2>
+                                <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">Name:</span> {donarName}</p>
+                                <p className="dark:text-myBgTheme-white text-xl text-myText-highDark my-1 "><span className="font-bold">Email:</span> {donarEmail}</p>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
