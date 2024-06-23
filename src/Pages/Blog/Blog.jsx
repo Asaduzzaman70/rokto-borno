@@ -35,7 +35,7 @@ const Blog = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-3">
                 {
                     blogDetail.map(blogInfo =>
-                        <div className="card card-compact bg-myBgTheme-white dark:bg-myText-mediumDark shadow-xl p-6">
+                        <div key={blogInfo._id} className="card card-compact bg-myBgTheme-white dark:bg-myText-mediumDark shadow-xl p-6">
                             <figure>
                                 <div className="w-full h-96">
                                     <div
