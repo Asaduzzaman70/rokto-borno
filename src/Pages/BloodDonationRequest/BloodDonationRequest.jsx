@@ -60,7 +60,7 @@ const BloodDonationRequest = () => {
                                         </td>
 
                                         <td>
-                                            <Link to={`/dashboard/userHome/viewDetails/${donationReqData._id}`}>
+                                            <Link to={`/requestDetails/${donationReqData._id}`}>
                                                 <button className="btn bg-myText-mediumDark text-myBgTheme-white font-bold border-none">
                                                     <FaEye />
                                                 </button>

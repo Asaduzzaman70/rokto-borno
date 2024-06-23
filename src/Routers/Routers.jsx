@@ -22,6 +22,7 @@ import AddBlog from "../Components/DashboardComponents/AddBlog/AddBlog";
 import BloodDonationRequest from "../Pages/BloodDonationRequest/BloodDonationRequest";
 import Blog from "../Pages/Blog/Blog";
 import ViewBlog from "../Components/ViewBlog/ViewBlog";
+import RequestDetails from "../Components/RequestDetails/RequestDetails";
 
 export const router = createBrowserRouter([
     {
@@ -51,6 +52,11 @@ export const router = createBrowserRouter([
             {
                 path: 'viewBlog/:_id',
                 element: <ViewBlog/>
+            },
+            // Private route
+            {
+                path: 'requestDetails/:id',
+                element: <PrivateRoute><RequestDetails/></PrivateRoute>
             }
         ]
     },
