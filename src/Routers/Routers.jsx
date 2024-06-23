@@ -21,6 +21,7 @@ import ContentManagement from "../Pages/Admin/ContentManagement/ContentManagemen
 import AddBlog from "../Components/DashboardComponents/AddBlog/AddBlog";
 import BloodDonationRequest from "../Pages/BloodDonationRequest/BloodDonationRequest";
 import Blog from "../Pages/Blog/Blog";
+import ViewBlog from "../Components/ViewBlog/ViewBlog";
 
 export const router = createBrowserRouter([
     {
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
             {
                 path: 'blog',
                 element: <Blog/>
+            },
+            {
+                path: 'viewBlog/:_id',
+                element: <ViewBlog/>
             }
         ]
     },

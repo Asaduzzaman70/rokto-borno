@@ -48,7 +48,7 @@ const Blog = () => {
                                 <h2 className="card-title text-2xl text-myBg-dark dark:text-myBgTheme-white border-myBg-dark dark:border-b-8">{blogInfo.blogTitle}</h2>
                                 <p className="dark:text-myText-mediumLight text-lg font-semibold">{blogInfo.content.slice(0, 100)} ...</p>
                                 <div className="card-actions justify-end">
-                                    <Link>
+                                    <Link to={`/viewBlog/${blogInfo._id}`}>
                                         <button className="btn bg-transparent border-none uppercase text-xl text-myBg-dark dark:text-myBgTheme-white">View More</button>
                                     </Link>
                                 </div>
