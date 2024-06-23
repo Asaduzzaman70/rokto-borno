@@ -12,7 +12,7 @@ const Banner = () => {
                     <h2 className='md:text-xl lg:text-2xl text-myBg-dark mt-2 font-light inline-block dark:border-b-4 dark:text-myBgTheme-white dark:border-myBg-dark'>Connecting Lives, One Donation at a Time</h2>
                     <p className='md:text-base lg:text-xl text-myText-highDark dark:text-myText-mediumLight'>Join us in saving lives. Your blood can make a difference.</p>
                     <div className='space-x-4 mt-7'>
-                        <Link>
+                        <Link to='/login'>
                             <button className='btn bg-transparent text-base uppercase text-myBg-dark font-bold border-4 border-myBg-dark
                             dark:text-myBgTheme-white
                             '>Join as a donor</button>
