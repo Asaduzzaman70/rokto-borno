@@ -45,7 +45,7 @@ const BlogItem = ({ blog, refetch }) => {
                 })
         }
         if (status === 'published') {
-            axiosSecure.patch(`/blog?status=draft&&id=${blog._id}`)
+            axiosSecure.patch(`/blog?status=published&&id=${blog._id}`)
                 .then(res => {
                     console.log(res.data);
                     if (res.data.matchedCount > 0) {

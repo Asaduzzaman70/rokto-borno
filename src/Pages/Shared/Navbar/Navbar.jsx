@@ -16,7 +16,7 @@ const Navbar = () => {
             <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/allRequest'>donation requests</NavLink>
         </li>
         <li>
-            <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/b'>blog</NavLink>
+            <NavLink className={({ isActive }) => isActive ? 'text-myBg-dark dark:bg-myBg-dark dark:text-myBgTheme-light' : ''} to='/blog'>blog</NavLink>
         </li>
         {
             user && <>
