@@ -16,7 +16,7 @@ const AllDonationRequest = () => {
     const { data: reqData = [], isLoading, refetch } = useQuery({
         queryKey: ['allDonationReqData'],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/donationRequest/admin`);
+            const res = await axiosSecure.get(`/donationRequestAdmin/admin`);
             return res.data;
         }
     })
@@ -93,6 +93,8 @@ const AllDonationRequest = () => {
             setDonationReqDatas(filter)
         }
     }
+
+    console.log(donationReqDatas);
 
     return (
         <div>

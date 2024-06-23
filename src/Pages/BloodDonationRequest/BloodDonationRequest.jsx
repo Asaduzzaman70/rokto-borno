@@ -3,6 +3,8 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
+import loadingBloodDrop from '../../assets/Elements/Animation - 1718904614105.gif'
+
 
 const BloodDonationRequest = () => {
     const axiosPublic = useAxiosPublic();
@@ -15,6 +17,10 @@ const BloodDonationRequest = () => {
         }
     })
 
+    if (isLoading) {
+        return <div className="h-screen flex justify-center items-center"><img src={loadingBloodDrop} alt="" /></div>;
+    }
+
     return (
         <div className="mb-28">
             <div className='text-center mb-14 md:mb-28'>
@@ -23,7 +29,7 @@ const BloodDonationRequest = () => {
                     Your Journey to Saving Lives Begins Here
                 </h2>
             </div>
-            <div>
+            <div className="px-6">
                 <div className="overflow-x-auto rounded-t-2xl">
                     <table className="table w-full">
                         {/* head */}
